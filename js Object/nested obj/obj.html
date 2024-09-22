@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nested Object</title>
+  </head>
+  <script src="obj.js" defer></script>
+  <body>
+    <h1>Return nested object property</h1>
+    <p>
+      Write a function that takes an object as argument. In some cases the
+      object contains other objects with some deeply nested properties. Return
+      the property 'b' of object 'a' inside the original object if it exists. If
+      not, return undefined
+    </p>
+    <p>
+      How to solve it We have learnt in this challenge that we can use the dot
+      notation to access an object property: const obj = {a:1};
+      console.log(obj.a); // output: 1; Sometimes, objects contain other
+      objects. In order to access the nested properties within those objects, we
+      can chain multiple dot notations: const obj = {x:{y:{z:10}}};
+      console.log(obj.x.y.z) // output: 10; However, this is a rather dangerous
+      approach. Often, you can not be 100% sure that all properties within your
+      dot notation chain are defined. This also applies to the present
+      challenge. Not all test cases contain the nested property obj.a.b. If we
+      try to access a property from an undefined object, the famous Cannot read
+      properties of undefined would be thrown. Approach 1: Optional chaining The
+      easiest solution for this problem is the optional chaining operator. With
+      this operator you can chain nested objects the same way as you do with the
+      dot notation. But, instead of just a dot, you use ?. to chain the
+      properties. In constrast to the dot notation, this solution doesn't throw
+      an error if you try to access an undefined object, but simply returns
+      undefined. const obj = {x:{y:{z:10}}}; console.log(obj?.x?.y?.z) //
+      output: 10; console.log(obj?.x?.y?.z?.a) // output: undefined; Approach 2:
+      Logical AND (&&) operator The optional chaining method has wide browser
+      support. But, it is a relatively new addition to JavaScript. So, if you
+      want to make sure that even very old browser versions support your code,
+      you might have to use a different approach. A common solution is to use
+      the logical AND (&&) operator. With this operator you can chain JavaScript
+      expressions that will be evaluated from left to right. If any expression
+      converts to a falsy value, further evaluations are stopped and the falsy
+      value is returned. Otherwise, it returns the last expression. This way we
+      can check for each nested property if it exists before going deeper. const
+      obj = {x:{y:{z:10}}}; console.log(obj && obj.x && obj.x.y && obj.x.y.z) //
+      output: 10; console.log(obj && obj.x && obj.x.y && obj.x.y.z &&
+      obj.x.y.z.a) // output: undefined; The downside of this approach is that
+      it involves a lot of duplicated code.
+    </p>
+  </body>
+</html>
